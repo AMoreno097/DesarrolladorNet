@@ -8,7 +8,7 @@ namespace ML
 {
     public class Libros
     {
-        public int IdTituloLibro { get; set; }
+        public int IdLibro { get; set; }
         public string TituloLibro { get; set; }
     }
 }
