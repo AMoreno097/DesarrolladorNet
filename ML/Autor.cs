@@ -9,7 +9,7 @@
         public string ApellidoMaterno { get; set; }
         public string Pais { get; set; }
         public string FechaNacimineto { get; set; }
-        
 
-    }
+		public List<object> Autors { get; set; }
+	}
 }
