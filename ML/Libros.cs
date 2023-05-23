@@ -8,5 +8,6 @@ namespace ML
 {
     public class Libros
     {
+        public int IdTituloLibro { get; set; }
     }
 }
