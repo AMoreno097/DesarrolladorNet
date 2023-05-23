@@ -13,5 +13,7 @@ namespace ML
         public string AnioPublicacion { get; set; }
         public byte Portada { get; set; }
 		public List<object> Libro { get; set; }
+		public ML.Editorial Editorial { get; set; }
+		public ML.Autor Autor { get; set; }
 	}
 }
