@@ -1,0 +1,101 @@
+﻿@model ML.Libros
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <section>
+        <h2>Módulo de Libros</h2>
+        <p>
+            En este modulo puedes visualizar los libros existentes,<br />
+            agregar, modificar y eliminar
+        </p>
+    </section>
+    <section>
+
+        <div style="float:right;">
+            <div class="row">
+                @Html.ActionLink("Agregar", "Form", "Producto", htmlAttributes: new { @class = "btn btn-success bi bi-person-plus-fill" })
+                @*localhost/Alumno/Form      *@
+
+
+            </div>
+        </div>
+    </section>
+    <hr />
+    <section>
+        @if (Model.Libro == null)
+        {
+            <div class="row">
+                <div class="alert alert-danger" role="alert">
+                    @ViewBag.Message
+                </div>
+            </div>
+        }
+        else
+        {
+
+
+            <table class="table table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <td class="text-center" style=" font-weight:bold;">Editar</td>
+
+                        <td class="visually-hidden">IdLibro</td>
+                        <td class="text-center" style="font-weight:bold;">Titulo</td>
+                        <td class="text-center" style=" font-weight:bold;">Anio de Publicacion</td>
+
+                        <td class="visually-hidden">Editorial</td>
+                        <td class="text-center" style=" font-weight:bold;">Nombre Esditorial</td>
+
+                        <td class="visually-hidden">IdAutor</td>
+                        <td class="text-center" style=" font-weight:bold;">Autor</td>
+                        <td class="text-center" style=" font-weight:bold;">Apellido Paterno</td>
+                        <td class="text-center" style=" font-weight:bold;">Apellido Maaterno</td>
+                        <td class="text-center" style=" font-weight:bold;">Pais</td>
+                        <td class="text-center" style=" font-weight:bold;">Fecha Nacimiento</td>
+                       
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (ML.Libros libro in Model.Libro)
+                    {
+                        <tr>
+                            <td class="text-center"><a class="btn btn-warning bi bi-pencil-square" href="@Url.Action("Form", "Producto", new { IdLibro = libro.IdLibro })"></a></td>
+
+                            <td class="visually-hidden">@libro.IdLibro</td>
+                            <td class="text-center">@libro.TituloLibro</td>
+                            <td class="text-center">@libro.AnioPublicacion</td>
+
+
+                            <td class="visually-hidden">@libro.Editorial.IdEditorial</td>
+                            <td class="text-center">@libro.Editorial.NombreEditorial</td>
+
+
+                            <td class="visually-hidden">@libro.Autor.IdAutor</td>
+                            <td class="text-center">@libro.Autor.NombreAutor</td>
+                            <td class="text-center">@libro.Autor.ApellidoPaterno</td>
+                            <td class="text-center">@libro.Autor.ApellidoMaterno</td>
+                            <td class="text-center">@libro.Autor.Pais</td>
+                            <td class="text-center">@libro.Autor.FechaNacimineto</td>
+
+
+
+
+                            <td class="text-center"><a class="btn btn-danger bi bi-trash" href="@Url.Action("Delete", "Producto", new { IdLibro = libro.IdLibro})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        }
+
+
+
+    </section>
+</div>
+
