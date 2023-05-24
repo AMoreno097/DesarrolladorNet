@@ -37,20 +37,37 @@
         </div>
 
 
-        <div class="col-md-6">
+       @* <div class="col-md-6">
             @Html.Label("", "Foto")
 
             @Html.TextBoxFor(model => model.Portada, new { @class = "form-control", @id = "txtNombre", @placeholder = "Insertar Foto" })
 
             @Html.ValidationMessageFor(model => model.Portada)
-        </div>
+        </div>*@
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.Portada)
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user-plus"></i></span>
+                        <input id="inpImagen" type='file' class="form-control" name="inpImagen" onchange="validateFile(this), visualizarImagen(this);  " />
+                   </div>
+                  @*  @if (Model.Portada == null)
+                    {
+                        <img id="Img" src="/NewFolder/icon-256x256.png" style="width:250px ; height:250px" />
+                    }
+                    else
+                    {
+                        <img id="Img" src="data:image/*;base64,@Model.Portada" style="width:250px ; height:250px" />
+                    }*@
+                </div>
+            </div>
     </div>
 
     <div class="row">
         <div class="col-md-4">
             @Html.Label("", "Autor")
-
-            @*@Html.TextBoxFor(model => model.Proveedor.IdProveedor, new { @class = "form-control", @id = "txtNombre", @placeholder = "2.Wirpool,3.Samsung,4.CH..." })*@
 
             @Html.DropDownListFor(model => model.Autor.IdAutor, new SelectList(Model.Autor.Autors, "IdAutor", "NombreAutor"), "Selecciona una Opcion", new { @class = "form-control", @id = "ddlAutor" })
 
