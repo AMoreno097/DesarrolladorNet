@@ -20,7 +20,7 @@ namespace PL.Controllers
 				client.BaseAddress = new Uri("https://localhost:5016/api/");
 				//client.BaseAddress = new Uri(urlApi);
 
-				var responseTask = client.GetAsync("Libros");
+				var responseTask = client.GetAsync("Libro");
 				responseTask.Wait(); //esperar a que se resuelva la llamada al servicio
 
 				var result = responseTask.Result;

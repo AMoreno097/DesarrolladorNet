@@ -34,27 +34,27 @@ namespace BL
 					//if (productos != null)
 					//{
 					// result.Objects = new List<object>();
-					foreach (var productoObj in productos)
+					foreach (var librpObj in productos)
 					{
 						libro = new ML.Libros();
 
-						libro.IdLibro = productoObj.IdLibro;
-						libro.TituloLibro = productoObj.TituloLibro;
-						libro.AnioPublicacion = productoObj.AnioPublicacion;
+						libro.IdLibro = librpObj.IdLibro;
+						libro.TituloLibro = librpObj.TituloLibro;
+						libro.AnioPublicacion = librpObj.AnioPublicacion;
 						//libro.Portada = productoObj.Portada;
 						
 
 						libro.Editorial = new ML.Editorial();
-						libro.Editorial.IdEditorial = productoObj.IdEditorial.Value;
-						libro.Editorial.NombreEditorial = productoObj.NombreEditorial;
+						libro.Editorial.IdEditorial = librpObj.IdEditorial.Value;
+						libro.Editorial.NombreEditorial = librpObj.NombreEditorial;
 
 						libro.Autor = new ML.Autor();
-						libro.Autor.IdAutor = productoObj.IdAutor.Value;
-						libro.Autor.NombreAutor = productoObj.NombreAutor;
-						libro.Autor.ApellidoPaterno = productoObj.ApellidoPaterno;
-						libro.Autor.ApellidoMaterno = productoObj.ApellidoMaterno;
-						libro.Autor.Pais = productoObj.Pais;
-						libro.Autor.FechaNacimineto = productoObj.FechaNacimineto;
+						libro.Autor.IdAutor = librpObj.IdAutor.Value;
+						libro.Autor.NombreAutor = librpObj.NombreAutor;
+						libro.Autor.ApellidoPaterno = librpObj.ApellidoPaterno;
+						libro.Autor.ApellidoMaterno = librpObj.ApellidoMaterno;
+						libro.Autor.Pais = librpObj.Pais;
+						libro.Autor.FechaNacimineto = librpObj.FechaNacimineto;
 
 						
 

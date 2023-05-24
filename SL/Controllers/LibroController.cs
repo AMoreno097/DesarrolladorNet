@@ -8,8 +8,8 @@ namespace SL.Controllers
 		[Route("api/Libro")]
 		public IActionResult GetAll()
 		{
-			ML.Libros producto = new ML.Libros();
-			ML.Result result = BL.Libro.GetAll(producto);
+			ML.Libros libro = new ML.Libros();
+			ML.Result result = BL.Libro.GetAll(libro);
 
 			if (result.Correct)
 			{
