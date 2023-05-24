@@ -3,9 +3,20 @@
 
 namespace PL.Controllers
 {
-	public class LibroController : Controller
+    public class LibroController : Controller
 	{
-		[HttpGet]
+
+        private readonly IConfiguration _configuration;
+        private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment _hostingEnvironment;
+
+        public LibroController(IConfiguration configuration, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment)
+        {
+            _configuration = configuration;
+            _hostingEnvironment = hostingEnvironment;
+        }
+
+
+        [HttpGet]
 		public ActionResult GetAll()
 		{
 			//ML.Result resulta = new ML.Result();
@@ -62,7 +73,8 @@ namespace PL.Controllers
                 //add
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:5016/api/");
+                    //client.BaseAddress = new Uri("http://localhost:5016/api/");
+                    client.BaseAddress = new Uri(_configuration["WebApi"]);
 
                     //HTTP POST
                     var postTask = client.PostAsJsonAsync<ML.Libros>("Libro/Add", libro);
@@ -85,21 +97,21 @@ namespace PL.Controllers
             }
             else
             {
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri("https://localhost:5016/api/");
+                //using (var client = new HttpClient())
+                //{
+                //    client.BaseAddress = new Uri("https://localhost:5016/api/");
 
-                    //HTTP POST
-                    var postTask = client.PutAsJsonAsync<ML.Libros>("Libro/Update/" + libro.IdLibro, libro);
-                    postTask.Wait();
+                //    //HTTP POST
+                //    var postTask = client.PutAsJsonAsync<ML.Libros>("Libro/Update/" + libro.IdLibro, libro);
+                //    postTask.Wait();
 
-                    var resultAlumno = postTask.Result;
-                    if (resultAlumno.IsSuccessStatusCode)
-                    {
-                        ViewBag.Menssaje = "Se ha actualizado el Libro";
-                        return PartialView("Modal");
-                    }
-                }
+                //    var resultAlumno = postTask.Result;
+                //    if (resultAlumno.IsSuccessStatusCode)
+                //    {
+                //        ViewBag.Menssaje = "Se ha actualizado el Libro";
+                //        return PartialView("Modal");
+                //    }
+                //}
                 return PartialView("Modal");
             }
         }

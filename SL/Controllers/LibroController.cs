@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 
-//using System.Web.Http;
-
 namespace SL.Controllers
 {
     public class LibroController : Controller
@@ -37,7 +35,7 @@ namespace SL.Controllers
             }
             else
             {
-                return NotFound(result);
+                return NotFound();
             }
         }
     }
