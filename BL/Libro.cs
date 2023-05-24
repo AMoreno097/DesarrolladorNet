@@ -27,14 +27,14 @@ namespace BL
 			{
 				using (DL.LibreriaContext context = new DL.LibreriaContext())
 				{
-					var productos = context.Libros.FromSqlRaw($"GetAllLibro").ToList();
+					var libros = context.Libros.FromSqlRaw($"GetAllLibro").ToList();
 					result.Objects = new List<object>();
 
 
 					//if (productos != null)
 					//{
 					// result.Objects = new List<object>();
-					foreach (var librpObj in productos)
+					foreach (var librpObj in libros)
 					{
 						libro = new ML.Libros();
 
