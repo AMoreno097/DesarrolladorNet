@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
+
 namespace PL.Controllers
 {
 	public class LibroController : Controller
@@ -18,9 +19,10 @@ namespace PL.Controllers
 			using (var client = new HttpClient())
 			{
 				client.BaseAddress = new Uri("https://localhost:5016/api/");
+				
 				//client.BaseAddress = new Uri(urlApi);
 
-				var responseTask = client.GetAsync("Libro");
+				var responseTask = client.GetAsync("Libro/GetAll");
 				responseTask.Wait(); //esperar a que se resuelva la llamada al servicio
 
 				var result = responseTask.Result;
@@ -47,5 +49,59 @@ namespace PL.Controllers
 			//return View(resultAlumnos);
 
 		}
-	}
+
+
+        [HttpPost] //metodo con servicios web
+        public ActionResult Form(ML.Libros libro)
+        {
+
+            ML.Result result = new ML.Result();
+            //add o update
+            if (libro.IdLibro == 0)
+            {
+                //add
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:5016/api/");
+
+                    //HTTP POST
+                    var postTask = client.PostAsJsonAsync<ML.Libros>("Libro/Add", libro);
+                    postTask.Wait();
+
+                    var resultAlumno = postTask.Result;
+                    if (resultAlumno.IsSuccessStatusCode)
+                    {
+                        ViewBag.Message = "Se ha insertado el Libro";
+                        return PartialView("Modal");
+                    }
+
+                    else
+                    {
+                        ViewBag.Message = "No se inserto el Libro";
+                        return PartialView("Modal");
+                    }
+                }
+
+            }
+            else
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:5016/api/");
+
+                    //HTTP POST
+                    var postTask = client.PutAsJsonAsync<ML.Libros>("Libro/Update/" + libro.IdLibro, libro);
+                    postTask.Wait();
+
+                    var resultAlumno = postTask.Result;
+                    if (resultAlumno.IsSuccessStatusCode)
+                    {
+                        ViewBag.Menssaje = "Se ha actualizado el Libro";
+                        return PartialView("Modal");
+                    }
+                }
+                return PartialView("Modal");
+            }
+        }
+    }
 }

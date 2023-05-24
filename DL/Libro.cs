@@ -19,7 +19,7 @@ public partial class Libro
 	public string ApellidoPaterno { get; set; }
 	public string ApellidoMaterno { get; set; }
 	public string Pais { get; set; }
-	public string FechaNacimineto { get; set; }
+	public string FechaNacimiento { get; set; }
 
 	public int? IdEditorial { get; set; }
 

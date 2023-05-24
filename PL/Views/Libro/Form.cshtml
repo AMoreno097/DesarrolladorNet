@@ -1,0 +1,87 @@
+﻿@model ML.Libros
+@{
+    ViewData["Title"] = "Form";
+}
+
+
+<div class="container-fluid">
+@using (Html.BeginForm("Form", "Libro", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="row">
+        <div class="col">
+            @Html.LabelFor(model => model.IdLibro, new { @class = "visually-hidden" })
+
+            @Html.TextBoxFor(model => model.IdLibro, new { @class = "visually-hidden form-control" })
+
+            @*@Html.ValidationMessageFor(model => model.IdProducto)*@
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            @Html.Label("", "Libro")
+
+            @Html.TextBoxFor(model => model.TituloLibro, new { @class = "form-control", @id = "txtNombre", @placeholder = "Ejemplo: Fantasia, Drama, etc.." })
+
+            @Html.ValidationMessageFor(model => model.TituloLibro)
+        </div>
+
+        <div class="col-md-2">
+            @Html.Label("", "Anio Publicacion")
+
+            @Html.TextBoxFor(model => model.AnioPublicacion, new { @class = "form-control", @id = "txtNombre", @placeholder = "dd/mm/aaaa" })
+
+            @Html.ValidationMessageFor(model => model.AnioPublicacion)
+        </div>
+
+
+        <div class="col-md-6">
+            @Html.Label("", "Foto")
+
+            @Html.TextBoxFor(model => model.Portada, new { @class = "form-control", @id = "txtNombre", @placeholder = "Insertar Foto" })
+
+            @Html.ValidationMessageFor(model => model.Portada)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            @Html.Label("", "Autor")
+
+            @*@Html.TextBoxFor(model => model.Proveedor.IdProveedor, new { @class = "form-control", @id = "txtNombre", @placeholder = "2.Wirpool,3.Samsung,4.CH..." })*@
+
+            @Html.DropDownListFor(model => model.Autor.IdAutor, new SelectList(Model.Autor.Autors, "IdAutor", "NombreAutor"), "Selecciona una Opcion", new { @class = "form-control", @id = "ddlAutor" })
+
+            @Html.ValidationMessageFor(model => model.Autor.IdAutor)
+        </div>
+
+        <div class="col-auto">
+            @Html.Label("", "Editorial")
+
+
+            @Html.DropDownListFor(model => model.Editorial.IdEditorial, new SelectList(Model.Editorial.Editorials, "IdArea", "NombreEditorial"), "Selecciona una opción", new { @class = "form-control", @id = "ddlEditorial" })
+
+
+            @Html.ValidationMessageFor(model => model.Editorial.IdEditorial)
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <input type="submit" value="Guardar" class="btn btn-success" />
+            @Html.ActionLink("Regresar", "GetAll", "Libro", htmlAttributes: new { @class = "btn btn-danger" })
+        </div>
+
+    </div>
+
+}
+</div>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>

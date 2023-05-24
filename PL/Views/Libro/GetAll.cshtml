@@ -17,7 +17,7 @@
 
         <div style="float:right;">
             <div class="row">
-                @Html.ActionLink("Agregar", "Form", "Producto", htmlAttributes: new { @class = "btn btn-success bi bi-person-plus-fill" })
+                @Html.ActionLink("Agregar", "Form", "Libro", htmlAttributes: new { @class = "btn btn-success bi bi-person-plus-fill" })
                 @*localhost/Alumno/Form      *@
 
 
@@ -65,7 +65,7 @@
                     @foreach (ML.Libros libro in Model.Libro)
                     {
                         <tr>
-                            <td class="text-center"><a class="btn btn-warning bi bi-pencil-square" href="@Url.Action("Form", "Producto", new { IdLibro = libro.IdLibro })"></a></td>
+                            <td class="text-center"><a class="btn btn-warning bi bi-pencil-square" href="@Url.Action("Form", "Libro", new { IdLibro = libro.IdLibro })"></a></td>
 
                             <td class="visually-hidden">@libro.IdLibro</td>
                             <td class="text-center">@libro.TituloLibro</td>
@@ -81,7 +81,7 @@
                             <td class="text-center">@libro.Autor.ApellidoPaterno</td>
                             <td class="text-center">@libro.Autor.ApellidoMaterno</td>
                             <td class="text-center">@libro.Autor.Pais</td>
-                            <td class="text-center">@libro.Autor.FechaNacimineto</td>
+                            <td class="text-center">@libro.Autor.FechaNacimiento</td>
 
 
 
