@@ -12,7 +12,54 @@
             En este modulo puedes visualizar los libros existentes,<br />
             agregar, modificar y eliminar
         </p>
+         @using (Html.BeginForm("GetAll", "Libro", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.TituloLibro)
+
+                @Html.TextBoxFor(model => model.TituloLibro, new { @class = "form-control", @id = "txtNombre" })
+
+                @Html.ValidationMessageFor(model => model.TituloLibro)
+
+            </div>
+       
+           
+            <div class="col-md-3">
+                @Html.Label("", "Autor")
+
+                @Html.DropDownListFor(model => model.Autor.IdAutor, new SelectList(Model.Autor.Autors, "IdAutor", "NombreAutor"), "Selecciona una Opcion", new { @class = "form-control", @id = "ddlAutor" })
+
+                @Html.ValidationMessageFor(model => model.Autor.IdAutor)
+            </div>
+
+            <div class="col-md-3">
+                @Html.Label("", "Editorial")
+
+
+                @Html.DropDownListFor(model => model.Editorial.IdEditorial, new SelectList(Model.Editorial.Editorials, "IdEditorial", "NombreEditorial"), "Selecciona una opción", new { @class = "form-control", @id = "ddlEditorial" })
+
+
+                @Html.ValidationMessageFor(model => model.Editorial.IdEditorial)
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.AnioPublicacion)
+
+                @Html.TextBoxFor(model => model.AnioPublicacion, new { @class = "form-control", @id = "txtApellidoM", @onkeypress="SoloLetras(event, 'txtApellidoM', 'lblApellidoM')" })
+
+                @Html.ValidationMessageFor(model => model.AnioPublicacion, "", new {@class= "text-danger"})
+                 @Html.Label(null, "", new{@id="lblAnioPublicacion"})
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="submit" value="Buscar" class="btn btn-primary " />
+            </div>
+        </div>
+    }
     </section>
+
     <section>
 
         <div style="float:right;">
@@ -35,65 +82,75 @@
         else
         {
 
+          <div class="row">
+            @foreach (ML.Libros libro in Model.Libro)
+            {
 
-            <table class="table table-bordered table-responsive">
-                <thead>
-                    <tr>
-                        <td class="text-center" style=" font-weight:bold;">Editar</td>
-
-                        <td class="visually-hidden">IdLibro</td>
-                        <td class="text-center" style="font-weight:bold;">Titulo</td>
-                        <td class="text-center" style=" font-weight:bold;">Anio de Publicacion</td>
-
-                        <td class="visually-hidden">Editorial</td>
-                        <td class="text-center" style=" font-weight:bold;">Nombre Esditorial</td>
-
-                        <td class="visually-hidden">IdAutor</td>
-                        <td class="text-center" style=" font-weight:bold;">Autor</td>
-                        <td class="text-center" style=" font-weight:bold;">Apellido Paterno</td>
-                        <td class="text-center" style=" font-weight:bold;">Apellido Maaterno</td>
-                        <td class="text-center" style=" font-weight:bold;">Pais</td>
-                        <td class="text-center" style=" font-weight:bold;">Fecha Nacimiento</td>
-                       
-
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach (ML.Libros libro in Model.Libro)
+                <div class="card text-white  bg-dark border-success mb-3 border-4" style="width: 18rem;">
+                    @if (libro.Portada == null@* || libro.Portada == " "*@)
                     {
-                        <tr>
-                            <td class="text-center"><a class="btn btn-warning bi bi-pencil-square" href="@Url.Action("Form", "Libro", new { IdLibro = libro.IdLibro })"></a></td>
-
-                            <td class="visually-hidden">@libro.IdLibro</td>
-                            <td class="text-center">@libro.TituloLibro</td>
-                            <td class="text-center">@libro.AnioPublicacion</td>
-
-
-                            <td class="visually-hidden">@libro.Editorial.IdEditorial</td>
-                            <td class="text-center">@libro.Editorial.NombreEditorial</td>
-
-
-                            <td class="visually-hidden">@libro.Autor.IdAutor</td>
-                            <td class="text-center">@libro.Autor.NombreAutor</td>
-                            <td class="text-center">@libro.Autor.ApellidoPaterno</td>
-                            <td class="text-center">@libro.Autor.ApellidoMaterno</td>
-                            <td class="text-center">@libro.Autor.Pais</td>
-                            <td class="text-center">@libro.Autor.FechaNacimiento</td>
-
-
-
-
-                            <td class="text-center"><a class="btn btn-danger bi bi-trash" href="@Url.Action("Delete", "Producto", new { IdLibro = libro.IdLibro})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
-                        </tr>
+                        <img src="/images/PSI.png" width="250px" height="250px"/>
                     }
-                </tbody>
-            </table>
+                    else
+                    {
+                        <img id="Img" src="data:image/*;base64,@libro.Portada" style="width:250px ; height:250px" />
+                    }
+                   <div class="card-body">
+                     <h5 class="card-title">@libro.TituloLibro</h5>
+                     <p class="card-text">@libro.AnioPublicacion</p>
+                     <p class="card-text">Autor: @libro.Autor.NombreAutor</p>
+                     <p class="card-text">Editorial: @libro.Editorial.NombreEditorial</p>
+                     <a href="@Url.Action("Form", "Libro", new { IdLibro = libro.IdLibro })" class="btn btn-primary">Modificar</a>
+                     <a class="btn btn-danger bi bi-trash" href="@Url.Action("Delete", "Libro", new { IdLibro = libro.IdLibro})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');">Eliminar</a>
 
-        }
+                            
+                   </div>
+                </div>
+            }
+          </div>
+        } 
 
 
 
     </section>
 </div>
 
+                     @section Scripts {
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
+
+
+
+<script type="text/javascript">
+
+                            function validateFile() {
+                var allowedExtension = ['jpeg', 'jpg', 'png'];
+                var fileExtension = document.getElementById('inpImagen').value.split('.').pop().toLowerCase();
+                var isValidFile = false;
+                for (var index in allowedExtension) {
+                    if (fileExtension === allowedExtension[index]) {
+                        isValidFile = true;
+                        break;
+                    }
+                }
+                if (!isValidFile) {
+                    alert('Las extensiones permitidas son : *.' + allowedExtension.join(', *.'));
+                    document.getElementById('inpImagen').value = ""
+                }
+                return isValidFile;
+            }
+            function visualizarImagen(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#Img').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            } 
+</script> 
+}
